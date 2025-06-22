@@ -1,0 +1,40 @@
+security:
+  password_hashers:
+    App\Entity\User: 'auto'
+
+  providers:
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: email
+
+  firewalls:
+    # 1) Dev & assets (no security)
+    dev:
+      pattern:   ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    # 2) Handle JSON login and issue JWT
+    login:
+      pattern:   ^/api/login$
+      stateless: true
+      json_login:
+        check_path:      /api/login
+        username_path:   email
+        password_path:   password
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+    # 3) Protect all other /api/* with JWT
+    api:
+      pattern:   ^/api
+      stateless: true
+      jwt: ~
+
+  access_control:
+    # Allow CORS preflight & login without credentials
+    - { path: ^/api/login$, methods: [OPTIONS, POST], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    # Allow registration if you have /api/register
+    - { path: ^/api/register$, methods: [OPTIONS, POST], roles: PUBLIC_ACCESS }
+    # Everything else under /api requires a valid JWT
+    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

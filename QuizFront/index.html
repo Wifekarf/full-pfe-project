@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wevioo Quiz</title>
+  <style>
+    /* Style amélioré pour le bouton du chatbot */
+    #chatbot-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #006674 0%, #46D3E5 100%);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 102, 116, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    #chatbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 102, 116, 0.4);
+    }
+
+    #chatbot-toggle::before {
+      content: "💬";
+      font-size: 24px;
+    }
+
+    #chatbot-toggle.active::before {
+      content: "✕";
+      font-size: 20px;
+    }
+
+    /* Style amélioré pour le conteneur de l'iframe */
+    #chatbot-container {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 380px;
+      height: 600px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      display: none;
+      z-index: 1000;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    #chatbot-container.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Style pour l'iframe */
+    #chatbot-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 16px;
+    }
+
+    /* En-tête personnalisé pour le chatbot */
+    .chatbot-header {
+      background: linear-gradient(135deg, #006674 0%, #46D3E5 100%);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chatbot-header h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .chatbot-header button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* Animation d'apparition */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 480px) {
+      #chatbot-container {
+        width: 90%;
+        right: 5%;
+        height: 70vh;
+        bottom: 80px;
+      }
+      
+      #chatbot-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+
+  <!-- Bouton flottant pour le chatbot -->
+  <button id="chatbot-toggle" aria-label="Ouvrir le chatbot"></button>
+
+  <!-- Conteneur amélioré pour le chatbot -->
+  <div id="chatbot-container">
+    <div class="chatbot-header">
+      <h3>Assistant Wevioo Quiz</h3>
+      <button id="chatbot-close" aria-label="Fermer le chatbot">✕</button>
+    </div>
+    <iframe
+      id="chatbot-iframe"
+      src="https://www.chatbase.co/chatbot-iframe/mvIwJ4lajfms0zYw9GuZk"
+      title="Chatbot Wevioo Quiz"
+      allow="microphone"
+    ></iframe>
+  </div>
+
+  <script>
+    // Gestion améliorée du chatbot avec animations
+    const chatbotToggle = document.getElementById("chatbot-toggle");
+    const chatbotContainer = document.getElementById("chatbot-container");
+    const chatbotClose = document.getElementById("chatbot-close");
+
+    // Ouvrir/fermer le chatbot
+    const toggleChatbot = () => {
+      chatbotContainer.classList.toggle("visible");
+      chatbotToggle.classList.toggle("active");
+      
+      // Réinitialiser l'iframe quand on ouvre pour rafraîchir la session
+      if (chatbotContainer.classList.contains("visible")) {
+        const iframe = document.getElementById("chatbot-iframe");
+        iframe.src = iframe.src;
+      }
+    };
+
+    chatbotToggle.addEventListener("click", toggleChatbot);
+    chatbotClose.addEventListener("click", toggleChatbot);
+
+    // Fermer le chatbot en cliquant à l'extérieur
+    document.addEventListener("click", (e) => {
+      if (chatbotContainer.classList.contains("visible") &&
+          !chatbotContainer.contains(e.target) &&
+          e.target !== chatbotToggle) {
+        toggleChatbot();
+      }
+    });
+
+    // Animation au chargement de la page
+    setTimeout(() => {
+      chatbotToggle.style.animation = "bounce 2s ease infinite";
+    }, 1000);
+  </script>
+</body>
+</html>
