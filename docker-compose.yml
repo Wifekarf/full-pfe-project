@@ -14,7 +14,7 @@ services:
       - quiz_network
 
   frontend:
-    build: ./QUIZFRONT
+    build: ./QuizFront
     container_name: quiz-frontend
     ports:
       - "3000:3000"
