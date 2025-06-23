@@ -51,7 +51,7 @@ cd full-pfe-project
 
 Make sure the database credentials in `/backend/.env` match the ones defined in `docker-compose.yml`.
 
-
+```bash
 DATABASE_URL="mysql://root@127.0.0.1:3306/quizapp?serverVersion=9.1&charset=utf8mb4"
 ```
 
@@ -113,7 +113,7 @@ php bin/console doctrine:fixtures:load
 ## 📦 Useful Commands
 
 ### Backend (from `/backend` folder)
-
+```bash
 cd backend fin
 composer install
 php bin/console doctrine:database:create
