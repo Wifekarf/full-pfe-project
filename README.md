@@ -19,14 +19,14 @@ This is a fullstack web application built with **Symfony (backend)** and **React
 ```
 /full-pfe-project/
 │
-├── backend/              # Symfony backend
+├── backend fin/              # Symfony backend
 │   ├── src/
 │   ├── config/
 │   ├── public/
 │   ├── .env
 │   └── Dockerfile
 │
-├── frontend/             # React frontend
+├── QuizFront/             # React frontend
 │   ├── src/
 │   ├── public/
 │   ├── vite.config.js
