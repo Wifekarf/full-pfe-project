@@ -51,9 +51,8 @@ cd full-pfe-project
 
 Make sure the database credentials in `/backend/.env` match the ones defined in `docker-compose.yml`.
 
-Example:
-```
-DATABASE_URL="mysql://root:root@mysql:3306/quizapp?serverVersion=8.0"
+
+DATABASE_URL="mysql://root@127.0.0.1:3306/quizapp?serverVersion=9.1&charset=utf8mb4"
 ```
 
 ### 3. Start Docker Containers
@@ -68,7 +67,7 @@ docker-compose up --build
 - React Frontend: [http://localhost:5173](http://localhost:5173)
 - MySQL: port 3306
 
-### 5. Run Symfony Commands
+### 5. Run Symfony Commands(optional)
 
 After the container is ready, execute into the backend container:
 
